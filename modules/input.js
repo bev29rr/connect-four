@@ -11,3 +11,7 @@ export function mapToChar(player) {
     else if (player === false) return 'B';
     else return ' ';
 }
+
+export function displayWinState(grid, pos, vecDir, player) {
+    
+}

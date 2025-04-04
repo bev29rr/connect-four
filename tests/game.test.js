@@ -1,4 +1,4 @@
-import { getSurroundingSquares, tryRow } from "../modules/game";
+import { getSurroundingVectors, tryRow, transposeVec } from "../modules/game";
 
 test('tryRow()', () => {
     let grid = new Array(4).fill(0).map(row => new Array(4).fill(null));
@@ -13,32 +13,38 @@ test('tryRow()', () => {
     expect(tryRow(grid, 3)).toEqual(3);
 });
 
-test('getSurroundingSquares()', () => {
+test('getSurroundingVectors()', () => {
     let grid = new Array(4).fill(0).map(row => new Array(4).fill(null));
     grid[0][3] = false;
     grid[1][3] = true;
     grid[1][2] = false;
     grid[2][3] = true;
 
-    expect(getSurroundingSquares(grid, [0, 0])).toEqual([
+    expect(getSurroundingVectors(grid, [0, 0])).toEqual([
         [0, 1],
         [1, 0],
         [1, 1]
     ]);
-    expect(getSurroundingSquares(grid, [1, 1])).toEqual([
-        [0, 0],
+    expect(getSurroundingVectors(grid, [1, 1])).toEqual([
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, -1],
         [0, 1],
-        [0, 2],
+        [1, -1],
         [1, 0],
-        [1, 2],
-        [2, 0],
-        [2, 1],
-        [2, 2],
+        [1, 1],
     ]);
     
-    expect(getSurroundingSquares(grid, [3, 3])).toEqual([
-        [2, 2],
-        [2, 3],
-        [3, 2]
+    expect(getSurroundingVectors(grid, [3, 3])).toEqual([
+        [-1, -1],
+        [-1, 0],
+        [0, -1]
     ]); 
+});
+
+test('transposeVec()', () => {
+    expect(transposeVec([1, 8], [1, 0])).toEqual([2, 8]);
+    expect(transposeVec([3, 6], [4, 7])).toEqual([7, 13]);
+    expect(transposeVec([4, 7], [2, 3])).toEqual([6, 10]);
 });

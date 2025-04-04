@@ -1,6 +1,6 @@
 import { displayGrid } from "./modules/cli";
 import { mapToChar, validateInput } from "./modules/input";
-import { tryRow, placePiece } from "./modules/game";
+import { tryRow, placePiece, checkWin } from "./modules/game";
 
 if (import.meta.main) {
     const GRID_SIZE = 10;
@@ -8,8 +8,11 @@ if (import.meta.main) {
     
     let gameSession = true;
     let currentPlayer = true;
+
+    let winState, itemPos;
+
     while (gameSession) {
-        console.clear();
+        //console.clear();
         displayGrid(grid);
         
         let inputSuccess = false;
@@ -22,10 +25,18 @@ if (import.meta.main) {
         }
         
 
-        let itemPos = tryRow(grid, rowInput-1);
+        let itemY = tryRow(grid, rowInput-1);
         if (itemPos !== false) {
-            grid = placePiece(grid, [rowInput-1, itemPos], currentPlayer);
-            currentPlayer = currentPlayer === true ? false : true;
+            itemPos = [rowInput-1, itemY]
+            grid = placePiece(grid, itemPos, currentPlayer);
+
+            winState = checkWin(grid, itemPos, currentPlayer);
+            if (winState !== false) {
+                gameSession = false;
+            } else {
+                currentPlayer = currentPlayer === true ? false : true;
+            }
         }
     }
+    displayWinState(grid, itemPos, winState, currentPlayer);
 }
