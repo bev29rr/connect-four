@@ -1,10 +1,10 @@
+import { mapToChar } from "./input";
+
 export function cliRenderRow(grid, row) {
     let strAcc = '|';
     let char;
     for (let i = 0; i < grid.length; i++) {
-        if (grid[i][row] === null) char = ' ';
-        else if (grid[i][row] === true) char = 'R';
-        else if (grid[i][row] === false) char = 'B';
+        char = mapToChar(grid[i][row]);
 
         strAcc += ` ${char} |`;
     }
