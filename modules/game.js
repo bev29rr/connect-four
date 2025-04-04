@@ -12,8 +12,9 @@ export function tryRow(grid, row) {
 
 // input: 2d arr && coordinates [x, y]
 function checkSquare(grid, position) {
-    if (position[0] < 0 || position[0] > grid.length) return false;
-    if (position[1] < 0 || position[1] > grid[position[0]].length) return false;
+    if (position.length !== 2) return false;
+    if (position[0] < 0 || position[0] > grid.length - 1) return false;
+    if (position[1] < 0 || position[1] > grid[0].length - 1) return false;
     return true;
 }
 
