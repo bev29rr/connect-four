@@ -47,25 +47,8 @@ export function getSurroundingVectors(grid, pos) {
 
 export function checkRow(grid, pos, vecDir, player) {
     for (let i = 1; i < 4; i++) {
-        console.log('-> ', pos, 
-            [
-                vecDir[0] * i, 
-                vecDir[1] * i
-            ],
-            transposeVec(pos, 
-                [
-                    vecDir[0] * i, 
-                    vecDir[1] * i
-                ]
-            )
-        );
-        let newVec = transposeVec(pos, 
-            [
-                vecDir[0] * i, 
-                vecDir[1] * i
-            ]
-        );
-        if (getSquare(grid, newVec) !== player) {console.log('Failed at', newVec);return false};
+        let newPos = transposeVec( pos, [vecDir[0] * i, vecDir[1] * i] );
+        if (getSquare(grid, newPos) !== player) return false;
     }
     return true;
 }
@@ -73,9 +56,8 @@ export function checkRow(grid, pos, vecDir, player) {
 export function checkWin(grid, pos, player) {
     let vectors = getSurroundingVectors(grid, pos);
     for (let i = 0; i < vectors.length; i++) {
-        let vecDir = transposeVec(pos, vectors[i]);
-        if (getSquare(grid, vecDir) === player) {
-            console.log('here');
+        let newPos = transposeVec(pos, vectors[i]);
+        if (getSquare(grid, newPos) === player) {
             if (checkRow(grid, pos, vectors[i], player)) return vectors[i];
         }
     }

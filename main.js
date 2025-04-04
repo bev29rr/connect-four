@@ -1,4 +1,4 @@
-import { displayGrid } from "./modules/cli";
+import { displayGrid, displayWinState } from "./modules/cli";
 import { mapToChar, validateInput } from "./modules/input";
 import { tryRow, placePiece, checkWin } from "./modules/game";
 
@@ -7,12 +7,12 @@ if (import.meta.main) {
     let grid = new Array(GRID_SIZE).fill(0).map(row => new Array(GRID_SIZE).fill(null));
     
     let gameSession = true;
-    let currentPlayer = true;
+    let currentPlayer = 0;
 
     let winState, itemPos;
 
     while (gameSession) {
-        //console.clear();
+        console.clear();
         displayGrid(grid);
         
         let inputSuccess = false;
@@ -34,7 +34,7 @@ if (import.meta.main) {
             if (winState !== false) {
                 gameSession = false;
             } else {
-                currentPlayer = currentPlayer === true ? false : true;
+                currentPlayer = currentPlayer === 0 ? 1 : 0;
             }
         }
     }

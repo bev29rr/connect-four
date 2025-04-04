@@ -7,11 +7,8 @@ export function validateInput(input, max = 10, min = 0) {
 }
 
 export function mapToChar(player) {
-    if (player === true) return 'A';
-    else if (player === false) return 'B';
+    if (player === 0) return '\x1b[31mA\x1b[0m';
+    else if (player === 1) return '\x1b[34mB\x1b[0m';
+    else if (player === 2) return '\x1b[32m#\x1b[0m';
     else return ' ';
-}
-
-export function displayWinState(grid, pos, vecDir, player) {
-    
 }
